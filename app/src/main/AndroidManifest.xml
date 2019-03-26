@@ -24,8 +24,13 @@
             android:label="OpenGL"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.HelloTriangleActivity"
             android:label="Hello Triangle"
-            android:name=".ui.HelloTriangleActivity" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.HelloWindowActivity"
+            android:label="Hello Window"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

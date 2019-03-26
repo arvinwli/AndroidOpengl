@@ -82,6 +82,8 @@ public class HelloTriangleActivity extends BaseActivity {
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
             Logger.d("onSurfaceCreated");
+            //glClearColor来设置清空屏幕所用的颜色。当调用glClear函数，清除颜色缓冲之后，
+            // 整个颜色缓冲都会被填充为glClearColor里所设置的颜色
             GLES30.glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             vertexBuffer = ByteBuffer.allocateDirect(vertices.length * 4)
                     .order(ByteOrder.nativeOrder())
@@ -124,6 +126,7 @@ public class HelloTriangleActivity extends BaseActivity {
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
             Logger.d("onSurfaceChanged");
+            //glViewport中定义的位置和宽高进行2D坐标的转换，将OpenGL中的位置坐标转换为你的屏幕坐标
             GLES30.glViewport(0, 0, width, height);
         }
 

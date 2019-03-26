@@ -13,17 +13,57 @@
       },
       {
         "name": "创建窗口",
-        "type": 201
+        "type": 201,
+        "detail": "HelloWindowActivity"
       },
       {
         "name": "你好，窗口",
-        "type": 202
+        "type": 202,
+        "detail": "HelloWindowActivity"
       },
       {
         "name": "你好，三角形",
         "type": 203,
-        "detail":"HelloTriangleActivity"
+        "detail": "HelloTriangleActivity"
       }
     ]
+  },
+  {
+    "name": "光照",
+    "type": 3,
+    "childItem": [
+      {
+        "name": "颜色",
+        "type": 300
+      },
+      {
+        "name": "基础光照",
+        "type": 301
+      },
+      {
+        "name": "材质",
+        "type": 302
+      },
+      {
+        "name": "光照贴图",
+        "type": 303
+      },
+      {
+        "name": "投光物",
+        "type": 304
+      },
+      {
+        "name": "多光源",
+        "type": 305
+      },
+      {
+        "name": "复习",
+        "type": 305
+      }
+    ]
+  },
+  {
+    "name": "模型加载",
+    "type": 4
   }
 ]
