@@ -25,6 +25,11 @@
         "name": "你好，三角形",
         "type": 203,
         "detail": "HelloTriangleActivity"
+      },
+      {
+        "name": "着色器",
+        "type": 204,
+        "detail": "ShaderActivity"
       }
     ]
   },
