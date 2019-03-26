@@ -66,6 +66,8 @@ public class ShaderActivity extends BaseActivity {
                 -0.5f, -0.5f, 0.0f,
                 0.5f, -0.5f, 0.0f,
                 0.0f, 0.5f, 0.0f};
+
+        float vColor[]={1.0f,0.0f,0.0f};
         FloatBuffer vertexBuffer;
 
         private IShader shader;
@@ -112,6 +114,7 @@ public class ShaderActivity extends BaseActivity {
             GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
             //使用着色器程序
             shader.use();
+            shader.setVec3("vColor",vColor);
             //绑定顶点数组对象
             GLES30.glBindVertexArray(VAO[0]);
             // 绘制三角形
