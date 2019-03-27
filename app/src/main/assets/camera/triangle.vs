@@ -1,0 +1,13 @@
+#version 300 es
+//OpenGL ES 与 OpenGL 之间的一个区别就是在 GLSL 中引入了精度限定符。
+//精度限定符可使着色器的编写者明确定义着色器变量计算时使用的精度，变量可以选择被声明为低、中或高精度。
+//精度限定符可告知编译器使其在计算时缩小变量潜在的精度变化范围，
+//当使用低精度时，OpenGL ES 的实现可以更快速和低功耗地运行着色器，效率的提高来自于精度的舍弃，如果精度选择不合理，着色器运行的结果会很失真。
+precision mediump float;
+layout (location = 0) in vec3 vPosition;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+void main() {
+    gl_Position =projection * view * model * vec4(vPosition,1.0);
+}

@@ -40,6 +40,11 @@
         "name": "坐标系统",
         "type": 206,
         "detail": "CoordinateActivity"
+      },
+      {
+        "name": "摄像机",
+        "type": 207,
+        "detail": "CameraActivity"
       }
     ]
   },
