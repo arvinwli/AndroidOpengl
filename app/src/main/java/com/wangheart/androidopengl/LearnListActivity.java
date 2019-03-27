@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.wangheart.androidopengl.common.BaseActivity;
+import com.wangheart.androidopengl.common.Constants;
+import com.wangheart.androidopengl.ui.WebActivity;
+import com.wangheart.androidopengl.utils.LogUtils;
 
 import java.util.List;
 
@@ -23,6 +27,7 @@ import java.util.List;
  */
 public class LearnListActivity extends BaseActivity {
     private List<LearnCenter.LearnItem> mListData;
+    private LearnCenter.LearnItem mLearnItem;
     private RecyclerView rv;
     private LearnAdapter mAdapter;
 
@@ -34,7 +39,13 @@ public class LearnListActivity extends BaseActivity {
     }
 
     private void initView() {
-        mListData = LearnCenter.getLearnList(getIntent());
+        mLearnItem = (LearnCenter.LearnItem) getIntent().getSerializableExtra(Constants.REQUEST.KEY_LEARN_ITEM);
+        if(mLearnItem==null){
+            mListData=LearnCenter.getRootList();
+        }else{
+            mListData = mLearnItem.getChildItem();
+        }
+        setTitle(mLearnItem==null?"全部":mLearnItem.getName());
         rv = findViewById(R.id.rv);
         mAdapter = new LearnAdapter();
         rv.setLayoutManager(new LinearLayoutManager(getThis()));
@@ -57,9 +68,20 @@ public class LearnListActivity extends BaseActivity {
                 public void onClick(View v) {
                     LearnCenter.LearnItem item=mListData.get(i);
                     if(item.getChildItem()!=null&&item.getChildItem().size()>0) {
-                        LearnCenter.launchLearnList(getThis(), mListData.get(i).getId());
+                        LearnCenter.launchLearnList(getThis(), mListData.get(i));
                     }else{
-                        LearnCenter.launchDetail(getThis(), item);
+                        switch (item.getType()){
+                            case LearnCenter.TYPE_ACTIVITY:
+                                LearnCenter.launchDetail(getThis(), item);
+                                break;
+                            case LearnCenter.TYPE_WEB:
+                                if(TextUtils.isEmpty(item.getUrl())){
+                                    LogUtils.w("item url is empty "+item);
+                                }else {
+                                    WebActivity.launch(getThis(), item.getUrl(), item.getName());
+                                }
+                                break;
+                        }
                     }
                 }
             });

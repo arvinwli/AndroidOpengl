@@ -19,12 +19,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
+        disableTopLeftView();
         LearnCenter.init();
         tvInfo=findViewById(R.id.tv_info);
         findViewById(R.id.btn_learn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LearnCenter.launchLearnList(getThis(),LearnCenter.ID_ROOT);
+                LearnCenter.launchLearnList(getThis(),null);
             }
         });
 

@@ -1,11 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="QMUI.Compat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">#333333</item>
+    </style>
+    <style name="AppTheme.NoActionbar" parent="AppTheme">
+        <item name="windowNoTitle">?android:windowNoTitle</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
     <style name="TextDefault">
         <item name="android:textSize">18sp</item>

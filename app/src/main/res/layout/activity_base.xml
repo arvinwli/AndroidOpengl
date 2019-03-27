@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/ll_container">
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/qmuiTopBar"
+        android:layout_width="match_parent"
+        app:qmui_topbar_title_color="#ffffff"
+        android:layout_height="48dp" />
+</LinearLayout>

@@ -9,10 +9,12 @@ import android.util.SparseArray;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
+import com.wangheart.androidopengl.common.Constants;
 import com.wangheart.androidopengl.utils.LogUtils;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -31,10 +33,6 @@ public class LearnCenter {
     private static List<LearnItem> learnItemList;
     private static SparseArray<LearnItem> learnItemIndex;
     public static final int ID_ROOT = 0;
-
-    public static interface REQUEST {
-        String KEY_ID = "key_id";
-    }
 
     public static void init() {
         Observable.just("config.json")
@@ -80,9 +78,9 @@ public class LearnCenter {
                 });
     }
 
-    public static void launchLearnList(Activity activity, int id) {
+    public static void launchLearnList(Activity activity,LearnItem learnItem) {
         Intent intent = new Intent(activity, LearnListActivity.class);
-        intent.putExtra(REQUEST.KEY_ID, id);
+        intent.putExtra(Constants.REQUEST.KEY_LEARN_ITEM, learnItem);
         activity.startActivity(intent);
     }
 
@@ -99,18 +97,15 @@ public class LearnCenter {
         activity.startActivity(intent);
     }
 
-    public static List<LearnItem> getLearnList(Intent intent) {
-        int mainType = intent.getIntExtra(REQUEST.KEY_ID, ID_ROOT);
-        LearnItem learnItem = learnItemIndex.get(mainType);
-        if (learnItem == null) {
-            return learnItemList;
-        } else {
-            return learnItem.getChildItem();
-        }
+
+    public static List<LearnItem> getRootList(){
+        return  learnItemList;
     }
 
+    public static final int TYPE_ACTIVITY=0;
+    public static final int TYPE_WEB=1;
 
-    public static class LearnItem {
+    public static class LearnItem implements Serializable {
         private String name;
         private int id;
         private int type;
