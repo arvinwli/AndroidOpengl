@@ -17,4 +17,11 @@ public class LogUtils {
     public static void d(@NonNull String message, @Nullable Object... args){
         Logger.d(message,args);
     }
+
+    public static void e(Throwable throwable,String message,Object... args){
+        Logger.e(throwable,message,args);
+    }
+    public static void e(@NonNull String message, @Nullable Object... args){
+        Logger.e(message,args);
+    }
 }

@@ -43,6 +43,9 @@
         <activity android:name=".ui.CameraActivity"
             android:label="CameraActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.TexturesActivity"
+            android:label="Textures"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
