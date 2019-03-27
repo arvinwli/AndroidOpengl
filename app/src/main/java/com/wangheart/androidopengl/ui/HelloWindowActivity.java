@@ -1,18 +1,13 @@
 package com.wangheart.androidopengl.ui;
 
 import android.content.Context;
-import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
-import com.wangheart.androidopengl.BaseActivity;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import com.wangheart.androidopengl.common.BaseActivity;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

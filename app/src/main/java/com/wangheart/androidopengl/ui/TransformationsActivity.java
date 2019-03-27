@@ -1,12 +1,11 @@
 package com.wangheart.androidopengl.ui;
 
-import android.opengl.Matrix;
 import android.os.Bundle;
 import android.renderscript.Matrix4f;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-import com.wangheart.androidopengl.BaseActivity;
+import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.R;
 
 import java.util.Arrays;

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.wangheart.androidopengl.common.BaseActivity;
+
 public class MainActivity extends BaseActivity {
     private TextView tvInfo;
 

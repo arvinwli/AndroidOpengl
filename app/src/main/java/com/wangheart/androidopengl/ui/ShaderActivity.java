@@ -1,16 +1,15 @@
 package com.wangheart.androidopengl.ui;
 
 import android.content.Context;
-import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
-import com.wangheart.androidopengl.BaseActivity;
-import com.wangheart.androidopengl.common.IShader;
-import com.wangheart.androidopengl.common.ShaderES30;
+import com.wangheart.androidopengl.common.BaseActivity;
+import com.wangheart.androidopengl.es.IShader;
+import com.wangheart.androidopengl.es.ShaderES30;
 
 import org.apache.commons.io.IOUtils;
 

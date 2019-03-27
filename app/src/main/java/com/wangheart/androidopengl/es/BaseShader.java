@@ -1,4 +1,4 @@
-package com.wangheart.androidopengl.common;
+package com.wangheart.androidopengl.es;
 
 /**
  * @author arvinwli

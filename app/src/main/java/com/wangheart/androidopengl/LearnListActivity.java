@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.wangheart.androidopengl.common.BaseActivity;
+
 import java.util.List;
 
 /**

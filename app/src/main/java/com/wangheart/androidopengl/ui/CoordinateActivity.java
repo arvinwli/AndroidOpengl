@@ -8,9 +8,9 @@ import android.renderscript.Matrix4f;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
-import com.wangheart.androidopengl.BaseActivity;
-import com.wangheart.androidopengl.common.IShader;
-import com.wangheart.androidopengl.common.ShaderES30;
+import com.wangheart.androidopengl.common.BaseActivity;
+import com.wangheart.androidopengl.es.IShader;
+import com.wangheart.androidopengl.es.ShaderES30;
 
 import org.apache.commons.io.IOUtils;
 

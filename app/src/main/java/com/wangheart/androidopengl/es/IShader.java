@@ -1,4 +1,4 @@
-package com.wangheart.androidopengl.common;
+package com.wangheart.androidopengl.es;
 
 import android.opengl.GLES30;
 

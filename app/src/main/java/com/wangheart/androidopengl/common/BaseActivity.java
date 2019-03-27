@@ -1,4 +1,4 @@
-package com.wangheart.androidopengl;
+package com.wangheart.androidopengl.common;
 
 import android.support.v7.app.AppCompatActivity;
 

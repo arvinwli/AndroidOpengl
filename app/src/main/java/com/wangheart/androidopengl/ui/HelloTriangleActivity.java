@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
-import com.wangheart.androidopengl.BaseActivity;
+import com.wangheart.androidopengl.common.BaseActivity;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
