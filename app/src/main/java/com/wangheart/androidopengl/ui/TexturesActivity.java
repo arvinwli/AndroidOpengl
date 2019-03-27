@@ -14,6 +14,7 @@ import com.wangheart.androidopengl.R;
 import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.es.IShader;
 import com.wangheart.androidopengl.es.ShaderES30;
+import com.wangheart.androidopengl.es.TexturesES;
 import com.wangheart.androidopengl.utils.LogUtils;
 
 import org.apache.commons.io.IOUtils;
@@ -67,7 +68,8 @@ public class TexturesActivity extends BaseActivity {
         int[] VBO = new int[1];
         int[] VAO = new int[1];
         int[] EBO = new int[1];
-        final int[] textureIds = new int[1];
+//        final int[] textureIds = new int[1];
+        int texture;
         //顶点数据
         float vertices[] = {
 //     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
@@ -127,37 +129,38 @@ public class TexturesActivity extends BaseActivity {
                     8 * 4, 6*4);
             GLES30.glEnableVertexAttribArray(2);
 
-            GLES30.glGenTextures(1, textureIds, 0);
-            if (textureIds[0] == 0) {
-                LogUtils.e("Could not generate a new OpenGL textureId object.");
-                return;
-            }
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inScaled = false;
-            final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.box, options);
-            if (bitmap == null) {
-                LogUtils.e( "Resource could not be decoded.");
-                GLES30.glDeleteTextures(1, textureIds, 0);
-                return;
-            }
-            // 绑定纹理到OpenGL
-            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureIds[0]);
-
-            //设置默认的纹理过滤参数
-            GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR_MIPMAP_LINEAR);
-            GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
-
-            // 加载bitmap到纹理中
-            GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap, 0);
-
-            // 生成MIP贴图
-            GLES30.glGenerateMipmap(GLES30.GL_TEXTURE_2D);
-
-            // 数据如果已经被加载进OpenGL,则可以回收该bitmap
-            bitmap.recycle();
-
-            // 取消绑定纹理
-            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0);
+            texture= TexturesES.loadTexture(R.mipmap.container);
+//            GLES30.glGenTextures(1, textureIds, 0);
+//            if (textureIds[0] == 0) {
+//                LogUtils.e("Could not generate a new OpenGL textureId object.");
+//                return;
+//            }
+//            final BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inScaled = false;
+//            final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.box, options);
+//            if (bitmap == null) {
+//                LogUtils.e( "Resource could not be decoded.");
+//                GLES30.glDeleteTextures(1, textureIds, 0);
+//                return;
+//            }
+//            // 绑定纹理到OpenGL
+//            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureIds[0]);
+//
+//            //设置默认的纹理过滤参数
+//            GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR_MIPMAP_LINEAR);
+//            GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR);
+//
+//            // 加载bitmap到纹理中
+//            GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bitmap, 0);
+//
+//            // 生成MIP贴图
+//            GLES30.glGenerateMipmap(GLES30.GL_TEXTURE_2D);
+//
+//            // 数据如果已经被加载进OpenGL,则可以回收该bitmap
+//            bitmap.recycle();
+//
+//            // 取消绑定纹理
+//            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0);
 
             try {
                 shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("textures/box.vert")),
@@ -182,7 +185,8 @@ public class TexturesActivity extends BaseActivity {
             //使用着色器程序
             shader.use();
             GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
-            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,textureIds[0]);
+//            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,textureIds[0]);
+            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,texture);
             //绑定顶点数组对象
             GLES30.glBindVertexArray(VAO[0]);
             // 绘制三角形

@@ -4,10 +4,13 @@
 //精度限定符可告知编译器使其在计算时缩小变量潜在的精度变化范围，
 //当使用低精度时，OpenGL ES 的实现可以更快速和低功耗地运行着色器，效率的提高来自于精度的舍弃，如果精度选择不合理，着色器运行的结果会很失真。
 precision mediump float;
-layout (location = 0) in vec3 vPosition;
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTexCoord;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+out vec2 TexCoord;
 void main() {
-    gl_Position =projection * view * model * vec4(vPosition,1.0);
+    gl_Position =projection * view * model * vec4(aPos,1.0);
+    TexCoord = aTexCoord;
 }
