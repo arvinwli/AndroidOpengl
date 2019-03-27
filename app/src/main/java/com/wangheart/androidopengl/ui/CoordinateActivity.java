@@ -98,8 +98,8 @@ public class CoordinateActivity extends BaseActivity {
                     3 * 4, 0);
             GLES30.glEnableVertexAttribArray(0);
             try {
-                shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("coordinate/triangle.vs")),
-                        IOUtils.toString(getThis().getAssets().open("coordinate/triangle.fs")));
+                shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("coordinate/triangle.vert")),
+                        IOUtils.toString(getThis().getAssets().open("coordinate/triangle.frag")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

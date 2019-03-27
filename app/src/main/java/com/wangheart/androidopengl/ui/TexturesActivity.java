@@ -160,8 +160,8 @@ public class TexturesActivity extends BaseActivity {
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0);
 
             try {
-                shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("textures/box.vs")),
-                        IOUtils.toString(getThis().getAssets().open("textures/box.fs")));
+                shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("textures/box.vert")),
+                        IOUtils.toString(getThis().getAssets().open("textures/box.frag")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

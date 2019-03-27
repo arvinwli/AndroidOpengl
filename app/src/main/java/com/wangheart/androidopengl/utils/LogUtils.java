@@ -18,6 +18,10 @@ public class LogUtils {
         Logger.d(message,args);
     }
 
+    public static void w(@NonNull String message, @Nullable Object... args){
+        Logger.w(message,args);
+    }
+
     public static void e(Throwable throwable,String message,Object... args){
         Logger.e(throwable,message,args);
     }

@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn_learn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LearnCenter.launchLearnList(getThis(),LearnCenter.TYPE_ROOT);
+                LearnCenter.launchLearnList(getThis(),LearnCenter.ID_ROOT);
             }
         });
 

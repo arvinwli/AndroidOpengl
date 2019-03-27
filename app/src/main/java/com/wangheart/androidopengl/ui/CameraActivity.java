@@ -101,8 +101,8 @@ public class CameraActivity extends BaseActivity {
                     3 * 4, 0);
             GLES30.glEnableVertexAttribArray(0);
             try {
-                shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("camera/triangle.vs")),
-                        IOUtils.toString(getThis().getAssets().open("camera/triangle.fs")));
+                shader=new ShaderES30(IOUtils.toString(getThis().getAssets().open("camera/triangle.vert")),
+                        IOUtils.toString(getThis().getAssets().open("camera/triangle.frag")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

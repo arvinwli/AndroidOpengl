@@ -34,7 +34,7 @@ public class LearnListActivity extends BaseActivity {
     }
 
     private void initView() {
-        mListData = LearnCenter.getSecondPageData(getIntent());
+        mListData = LearnCenter.getLearnList(getIntent());
         rv = findViewById(R.id.rv);
         mAdapter = new LearnAdapter();
         rv.setLayoutManager(new LinearLayoutManager(getThis()));

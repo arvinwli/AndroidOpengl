@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orhanobut.logger.Logger;
+import com.wangheart.androidopengl.utils.LogUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -29,10 +30,10 @@ import io.reactivex.schedulers.Schedulers;
 public class LearnCenter {
     private static List<LearnItem> learnItemList;
     private static SparseArray<LearnItem> learnItemIndex;
-    public static final int TYPE_ROOT = 0;
+    public static final int ID_ROOT = 0;
 
     public static interface REQUEST {
-        String KEY_TYPE = "key_type";
+        String KEY_ID = "key_id";
     }
 
     public static void init() {
@@ -79,27 +80,27 @@ public class LearnCenter {
                 });
     }
 
-    public static void launchLearnList(Activity activity, int type) {
+    public static void launchLearnList(Activity activity, int id) {
         Intent intent = new Intent(activity, LearnListActivity.class);
-        intent.putExtra(REQUEST.KEY_TYPE, type);
+        intent.putExtra(REQUEST.KEY_ID, id);
         activity.startActivity(intent);
     }
 
 
     public static void launchDetail(Activity activity, LearnItem learnItem) {
         if(learnItem==null|| TextUtils.isEmpty(learnItem.getActivityName())){
-            Logger.w("learnItem is invalid "+learnItem);
+            LogUtils.w("learnItem is invalid "+learnItem);
             return;
         }
         Intent intent=new Intent();
         String className=activity.getPackageName()+".ui."+learnItem.getActivityName();
-        Logger.d("className:"+className);
+        LogUtils.d("className:"+className);
         intent.setComponent(new ComponentName(activity,className));
         activity.startActivity(intent);
     }
 
-    public static List<LearnItem> getSecondPageData(Intent intent) {
-        int mainType = intent.getIntExtra(REQUEST.KEY_TYPE, TYPE_ROOT);
+    public static List<LearnItem> getLearnList(Intent intent) {
+        int mainType = intent.getIntExtra(REQUEST.KEY_ID, ID_ROOT);
         LearnItem learnItem = learnItemIndex.get(mainType);
         if (learnItem == null) {
             return learnItemList;
@@ -112,6 +113,8 @@ public class LearnCenter {
     public static class LearnItem {
         private String name;
         private int id;
+        private int type;
+        private String url;
         private LearnItem parentItem;
         private List<LearnItem> childItem;
         private String activityName;
@@ -133,7 +136,21 @@ public class LearnCenter {
             this.name = name;
         }
 
+        public int getType() {
+            return type;
+        }
 
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
 
         public LearnItem getParentItem() {
             return parentItem;
@@ -164,6 +181,8 @@ public class LearnCenter {
             return "LearnItem{" +
                     "name='" + name + '\'' +
                     ", id=" + id +
+                    ", type=" + type +
+                    ", url='" + url + '\'' +
                     ", parentItem=" + parentItem +
                     ", childItem=" + childItem +
                     ", activityName='" + activityName + '\'' +
