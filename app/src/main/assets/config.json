@@ -30,6 +30,16 @@
         "name": "着色器",
         "type": 204,
         "detail": "ShaderActivity"
+      },
+      {
+        "name": "变换",
+        "type": 205,
+        "detail": "TransformationsActivity"
+      },
+      {
+        "name": "坐标系统",
+        "type": 206,
+        "detail": "CoordinateActivity"
       }
     ]
   },
