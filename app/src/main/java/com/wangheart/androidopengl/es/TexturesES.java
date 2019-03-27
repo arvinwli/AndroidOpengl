@@ -2,6 +2,7 @@ package com.wangheart.androidopengl.es;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.opengl.GLES30;
 import android.opengl.GLUtils;
 import android.support.annotation.DrawableRes;
@@ -18,9 +19,18 @@ public class TexturesES {
     public static int loadTexture(@DrawableRes int resId) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
+        Matrix flip = new Matrix();
+        flip.postScale(1f, -1f);
         final Bitmap bitmap = BitmapFactory.decodeResource(OpenglApplication.getInstance().getResources(),
                 resId, options);
-        return loadTexture(bitmap);
+        if(bitmap==null){
+            LogUtils.e("decodeResource bitmap failed");
+            return -1;
+        }
+        //y轴翻转
+        Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), flip, true);
+        bitmap.recycle();
+        return loadTexture(bmp);
     }
 
     public static int loadTexture(Bitmap bitmap) {
