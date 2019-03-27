@@ -57,7 +57,7 @@ public class LearnListActivity extends BaseActivity {
                 public void onClick(View v) {
                     LearnCenter.LearnItem item=mListData.get(i);
                     if(item.getChildItem()!=null&&item.getChildItem().size()>0) {
-                        LearnCenter.launchLearnList(getThis(), mListData.get(i).getType());
+                        LearnCenter.launchLearnList(getThis(), mListData.get(i).getId());
                     }else{
                         LearnCenter.launchDetail(getThis(), item);
                     }

@@ -1,94 +1,94 @@
 [
   {
     "name": "简介",
-    "type": 1
+    "id": 1
   },
   {
     "name": "入门",
-    "type": 2,
+    "id": 2,
     "childItem": [
       {
         "name": "OpenGL",
-        "type": 200
+        "id": 200
       },
       {
         "name": "创建窗口",
-        "type": 201,
-        "detail": "HelloWindowActivity"
+        "id": 201,
+        "activityName": "HelloWindowActivity"
       },
       {
         "name": "你好，窗口",
-        "type": 202,
-        "detail": "HelloWindowActivity"
+        "id": 202,
+        "activityName": "HelloWindowActivity"
       },
       {
         "name": "你好，三角形",
-        "type": 203,
-        "detail": "HelloTriangleActivity"
+        "id": 203,
+        "activityName": "HelloTriangleActivity"
       },
       {
         "name": "着色器",
-        "type": 204,
-        "detail": "ShaderActivity"
+        "id": 204,
+        "activityName": "ShaderActivity"
       },
       {
         "name": "纹理",
-        "type": 205,
-        "detail": "TexturesActivity"
+        "id": 205,
+        "activityName": "TexturesActivity"
       },
       {
         "name": "变换",
-        "type": 206,
-        "detail": "TransformationsActivity"
+        "id": 206,
+        "activityName": "TransformationsActivity"
       },
       {
         "name": "坐标系统",
-        "type": 207,
-        "detail": "CoordinateActivity"
+        "id": 207,
+        "activityName": "CoordinateActivity"
       },
       {
         "name": "摄像机",
-        "type": 208,
-        "detail": "CameraActivity"
+        "id": 208,
+        "activityName": "CameraActivity"
       }
     ]
   },
   {
     "name": "光照",
-    "type": 3,
+    "id": 3,
     "childItem": [
       {
         "name": "颜色",
-        "type": 300
+        "id": 300
       },
       {
         "name": "基础光照",
-        "type": 301
+        "id": 301
       },
       {
         "name": "材质",
-        "type": 302
+        "id": 302
       },
       {
         "name": "光照贴图",
-        "type": 303
+        "id": 303
       },
       {
         "name": "投光物",
-        "type": 304
+        "id": 304
       },
       {
         "name": "多光源",
-        "type": 305
+        "id": 305
       },
       {
         "name": "复习",
-        "type": 305
+        "id": 306
       }
     ]
   },
   {
     "name": "模型加载",
-    "type": 4
+    "id": 4
   }
 ]

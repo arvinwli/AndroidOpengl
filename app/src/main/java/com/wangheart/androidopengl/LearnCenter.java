@@ -12,7 +12,6 @@ import com.orhanobut.logger.Logger;
 
 import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -64,7 +63,7 @@ public class LearnCenter {
                         learnItemList = learnCenters;
                         learnItemIndex = new SparseArray<>();
                         for (LearnItem learnItem : learnItemList) {
-                            learnItemIndex.put(learnItem.type, learnItem);
+                            learnItemIndex.put(learnItem.id, learnItem);
                         }
                     }
 
@@ -88,12 +87,12 @@ public class LearnCenter {
 
 
     public static void launchDetail(Activity activity, LearnItem learnItem) {
-        if(learnItem==null|| TextUtils.isEmpty(learnItem.getDetail())){
+        if(learnItem==null|| TextUtils.isEmpty(learnItem.getActivityName())){
             Logger.w("learnItem is invalid "+learnItem);
             return;
         }
         Intent intent=new Intent();
-        String className=activity.getPackageName()+".ui."+learnItem.getDetail();
+        String className=activity.getPackageName()+".ui."+learnItem.getActivityName();
         Logger.d("className:"+className);
         intent.setComponent(new ComponentName(activity,className));
         activity.startActivity(intent);
@@ -112,18 +111,19 @@ public class LearnCenter {
 
     public static class LearnItem {
         private String name;
-        private int type;
+        private int id;
         private LearnItem parentItem;
         private List<LearnItem> childItem;
-        private String detail;
+        private String activityName;
 
-        public String getDetail() {
-            return detail;
+        public int getId() {
+            return id;
         }
 
-        public void setDetail(String detail) {
-            this.detail = detail;
+        public void setId(int id) {
+            this.id = id;
         }
+
 
         public String getName() {
             return name;
@@ -133,13 +133,7 @@ public class LearnCenter {
             this.name = name;
         }
 
-        public int getType() {
-            return type;
-        }
 
-        public void setType(int type) {
-            this.type = type;
-        }
 
         public LearnItem getParentItem() {
             return parentItem;
@@ -157,13 +151,22 @@ public class LearnCenter {
             this.childItem = childItem;
         }
 
+        public String getActivityName() {
+            return activityName;
+        }
+
+        public void setActivityName(String activityName) {
+            this.activityName = activityName;
+        }
+
         @Override
         public String toString() {
             return "LearnItem{" +
                     "name='" + name + '\'' +
-                    ", type=" + type +
+                    ", id=" + id +
                     ", parentItem=" + parentItem +
                     ", childItem=" + childItem +
+                    ", activityName='" + activityName + '\'' +
                     '}';
         }
     }
