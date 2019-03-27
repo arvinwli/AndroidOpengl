@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/26
  */

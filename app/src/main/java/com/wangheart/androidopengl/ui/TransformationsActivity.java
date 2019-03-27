@@ -11,7 +11,7 @@ import com.wangheart.androidopengl.R;
 import java.util.Arrays;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/26
  */

@@ -25,7 +25,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/26
  */
@@ -91,6 +91,8 @@ public class LearnCenter {
             return;
         }
         Intent intent=new Intent();
+        intent.putExtra(Constants.REQUEST.KEY_LEARN_ITEM, learnItem);
+        intent.putExtra(Constants.REQUEST.KEY_ACTIVITY_TITLE, learnItem.getName());
         String className=activity.getPackageName()+".ui."+learnItem.getActivityName();
         LogUtils.d("className:"+className);
         intent.setComponent(new ComponentName(activity,className));

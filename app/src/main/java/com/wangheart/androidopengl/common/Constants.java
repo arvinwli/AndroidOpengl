@@ -1,7 +1,7 @@
 package com.wangheart.androidopengl.common;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/27
  */

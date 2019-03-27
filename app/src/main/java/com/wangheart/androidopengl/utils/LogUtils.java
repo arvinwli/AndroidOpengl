@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.orhanobut.logger.Logger;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/26
  */

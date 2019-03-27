@@ -8,6 +8,11 @@ import android.widget.TextView;
 
 import com.wangheart.androidopengl.common.BaseActivity;
 
+/**
+ * @author arvin
+ * @description:
+ * @date 2019/3/26
+ */
 public class MainActivity extends BaseActivity {
     private TextView tvInfo;
 

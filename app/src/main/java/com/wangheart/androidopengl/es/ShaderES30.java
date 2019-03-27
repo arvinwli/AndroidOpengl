@@ -6,7 +6,7 @@ import android.opengl.GLES30;
 import com.wangheart.androidopengl.utils.LogUtils;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description: Shader
  * @date 2019/3/26
  */

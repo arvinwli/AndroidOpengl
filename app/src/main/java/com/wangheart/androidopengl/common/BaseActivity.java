@@ -7,13 +7,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.wangheart.androidopengl.R;
 
 /**
- * @author arvinwli
- * @description:
+ * @author arvin
+ * @description: 基类
  * @date 2019/3/26
  */
 abstract public class BaseActivity extends AppCompatActivity {
@@ -26,12 +28,16 @@ abstract public class BaseActivity extends AppCompatActivity {
 
     private void initTopBar(){
         qmuiTopBar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        qmuiTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+        QMUIAlphaImageButton btnBack= qmuiTopBar.addLeftBackImageButton();
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) btnBack.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        btnBack.setLayoutParams(layoutParams);
         String activityTitle=getIntent().getStringExtra(Constants.REQUEST.KEY_ACTIVITY_TITLE);
         if(!TextUtils.isEmpty(activityTitle)){
             qmuiTopBar.setTitle(activityTitle);

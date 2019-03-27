@@ -16,7 +16,7 @@ import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.utils.LogUtils;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/27
  */

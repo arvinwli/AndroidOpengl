@@ -28,7 +28,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description: 纹理
  * @date 2019/3/26
  */

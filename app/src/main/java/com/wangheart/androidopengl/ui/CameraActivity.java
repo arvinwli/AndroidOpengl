@@ -26,7 +26,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description: 摄像机
  * @date 2019/3/26
  */

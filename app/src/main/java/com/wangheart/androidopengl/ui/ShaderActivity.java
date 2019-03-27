@@ -22,7 +22,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description: 着色器
  * @date 2019/3/26
  */

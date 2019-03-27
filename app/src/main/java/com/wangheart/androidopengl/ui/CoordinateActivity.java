@@ -23,7 +23,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description: 坐标系统
  * @date 2019/3/26
  */

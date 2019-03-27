@@ -3,7 +3,7 @@ package com.wangheart.androidopengl.es;
 import android.opengl.GLES30;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description:
  * @date 2019/3/26
  */
