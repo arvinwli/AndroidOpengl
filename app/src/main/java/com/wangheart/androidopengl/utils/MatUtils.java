@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @description:  矩阵相关操作
  * @date 2019/3/27
  */
-public class MatrixUtils {
+public class MatUtils {
     public static String formatToString(float[] mat){
         String res="";
         if(!isValid(mat,4)){

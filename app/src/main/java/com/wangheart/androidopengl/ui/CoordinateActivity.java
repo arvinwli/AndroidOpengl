@@ -5,7 +5,6 @@ import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.Bundle;
-import android.renderscript.Matrix4f;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
@@ -14,7 +13,7 @@ import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.es.IShader;
 import com.wangheart.androidopengl.es.ShaderES30;
 import com.wangheart.androidopengl.es.TexturesES;
-import com.wangheart.androidopengl.utils.MatrixUtils;
+import com.wangheart.androidopengl.utils.MatUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -177,8 +176,8 @@ public class CoordinateActivity extends BaseActivity {
             Logger.d("onSurfaceChanged");
             //glViewport中定义的位置和宽高进行2D坐标的转换，将OpenGL中的位置坐标转换为你的屏幕坐标
             GLES30.glViewport(0, 0, width, height);
-            view= MatrixUtils.genMat4();
-            projection=MatrixUtils.genMat4();
+            view= MatUtils.genMat4();
+            projection= MatUtils.genMat4();
             Matrix.translateM(view,0,0.0f,0.0f,-3.0f);
             Matrix.perspectiveM(projection,0,45.0f,width/(float)height,0.1f,100.0f);
         }
@@ -198,7 +197,7 @@ public class CoordinateActivity extends BaseActivity {
             GLES30.glActiveTexture(GLES30.GL_TEXTURE1);
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,texture1);
             for(int i=0;i<cubePositions.length;i+=3){
-                model=MatrixUtils.genMat4();
+                model= MatUtils.genMat4();
                 Matrix.translateM(model,0,cubePositions[i],cubePositions[i+1],cubePositions[i+2]);
                 Matrix.scaleM(model,0,0.5f,0.5f,0.5f);
                 float angle = 20.0f * i;

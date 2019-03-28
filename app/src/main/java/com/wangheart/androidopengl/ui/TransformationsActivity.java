@@ -2,15 +2,12 @@ package com.wangheart.androidopengl.ui;
 
 import android.opengl.Matrix;
 import android.os.Bundle;
-import android.renderscript.Matrix4f;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.R;
-import com.wangheart.androidopengl.utils.MatrixUtils;
-
-import java.util.Arrays;
+import com.wangheart.androidopengl.utils.MatUtils;
 
 /**
  * @author arvin
@@ -55,21 +52,21 @@ public class TransformationsActivity extends BaseActivity {
 
         float[] trans=getMat4();
         println("单位矩阵：\n");
-        println(MatrixUtils.formatToString(trans));
+        println(MatUtils.formatToString(trans));
 
         Matrix.translateM(trans,0,1.0f,2.0f,3.0f);
         println("根据单位矩阵 translate (1.0,2.0,3.0)\n");
-        println(MatrixUtils.formatToString(trans)+"\n");
+        println(MatUtils.formatToString(trans)+"\n");
 
         float[] scaleM=getMat4();
         Matrix.scaleM(scaleM,0,1.0f,2.0f,3.0f);
         println("根据单位矩阵 scale (1.0,2.0,3.0)\n");
-        println(MatrixUtils.formatToString(scaleM)+"\n");
+        println(MatUtils.formatToString(scaleM)+"\n");
 
         float[] rotateM=getMat4();
         Matrix.rotateM(rotateM,0,90.0f,1.0f,2.0f,3.0f);
         println("根据单位矩阵 rotate (1.0,2.0,3.0)\n");
-        println(MatrixUtils.formatToString(rotateM)+"\n");
+        println(MatUtils.formatToString(rotateM)+"\n");
     }
 
     private void println(String content){
