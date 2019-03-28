@@ -39,10 +39,12 @@ import javax.microedition.khronos.opengles.GL10;
  * @description: 摄像机
  * @date 2019/3/26
  */
-public class CameraActivity extends BaseActivity implements View.OnClickListener{
+public class CameraActivity extends BaseActivity {
     private MyGLSurfaceView mGLSurfaceView;
     private FrameLayout llCameraRoot;
     private GlCamera glCamera;
+    private long lastTime=0;
+    private GlCamera.Camera_Movement currentMovement= GlCamera.Camera_Movement.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,26 +53,43 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         mGLSurfaceView = new MyGLSurfaceView(getThis());
         llCameraRoot=findViewById(R.id.ll_camera_root);
         llCameraRoot.addView(mGLSurfaceView);
-        findViewById(R.id.btn_left).setOnClickListener(this);
-        findViewById(R.id.btn_right).setOnClickListener(this);
-        findViewById(R.id.btn_top).setOnClickListener(this);
-        findViewById(R.id.btn_bottom).setOnClickListener(this);
+        TransTouchListener transTouchListener=new TransTouchListener();
+        findViewById(R.id.btn_left).setOnTouchListener(transTouchListener);
+        findViewById(R.id.btn_right).setOnTouchListener(transTouchListener);
+        findViewById(R.id.btn_top).setOnTouchListener(transTouchListener);
+        findViewById(R.id.btn_bottom).setOnTouchListener(transTouchListener);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    protected class TransTouchListener implements View.OnTouchListener{
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    s(v.getId());
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    currentMovement= GlCamera.Camera_Movement.NONE;
+                    break;
+            }
+            return true;
+        }
+    }
+
+    private void s(int id){
+        switch (id){
             case R.id.btn_left:
-                glCamera.processKeyboard(GlCamera.Camera_Movement.LEFT);
+                currentMovement= GlCamera.Camera_Movement.LEFT;
                 break;
             case R.id.btn_right:
-                glCamera.processKeyboard(GlCamera.Camera_Movement.RIGHT);
+                currentMovement= GlCamera.Camera_Movement.RIGHT;
                 break;
             case R.id.btn_top:
-                glCamera.processKeyboard(GlCamera.Camera_Movement.FORWARD);
+                currentMovement= GlCamera.Camera_Movement.FORWARD;
                 break;
             case R.id.btn_bottom:
-                glCamera.processKeyboard(GlCamera.Camera_Movement.BACKWARD);
+                currentMovement= GlCamera.Camera_Movement.BACKWARD;
                 break;
         }
     }
@@ -98,7 +117,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                     float yOffset=lastY-event.getY();
                     lastX=event.getX();
                     lastY=event.getY();
-                    glCamera.processDirection(xOffset,yOffset);
+                    glCamera.processDirection(-xOffset,-yOffset);
                     break;
             }
             return true;
@@ -241,6 +260,13 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
             GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT | GLES30.GL_DEPTH_BUFFER_BIT);
             //使用着色器程序
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, texture);
+            if(lastTime==0){
+                lastTime=System.currentTimeMillis();
+            }else{
+                long currentTime=System.currentTimeMillis();
+                glCamera.processKeyboard(currentMovement,currentTime-lastTime);
+                lastTime=currentTime;
+            }
             shader.use();
             shader.setMat4("view", glCamera.getViewMatrix());
             shader.setMat4("projection", projection);

@@ -1,5 +1,6 @@
 package com.wangheart.androidopengl.es;
 
+import android.graphics.Camera;
 import android.opengl.Matrix;
 
 import com.wangheart.androidopengl.utils.LogUtils;
@@ -16,16 +17,17 @@ import java.util.Arrays;
  */
 public class GlCamera {
     public enum Camera_Movement {
+        NONE,
         FORWARD,
         BACKWARD,
         LEFT,
-        RIGHT
+        RIGHT,
     }
 
     // Default camera values
     private float YAW = -90.0f;
     private float PITCH = 0.0f;
-    private float SPEED = 2.5f;
+    private float SPEED = 0.0025f;
     private float SENSITIVITY = 0.05f;
     private float ZOOM = 45.0f;
 
@@ -80,9 +82,13 @@ public class GlCamera {
     }
 
     // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
-    public void processKeyboard(Camera_Movement direction)
+    public void processKeyboard(Camera_Movement direction,long deltaTime)
     {
-        float velocity = movementSpeed * 0.1f;
+        if(direction== Camera_Movement.NONE){
+            return;
+        }
+        LogUtils.d("deltaTime:%d",deltaTime);
+        float velocity = movementSpeed * deltaTime;
         if (direction == Camera_Movement.FORWARD)
             VecUtils.add2Left(position,VecUtils.multiply(front,velocity));
         if (direction == Camera_Movement.BACKWARD)
