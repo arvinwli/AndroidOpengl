@@ -2,16 +2,18 @@
   {
     "name": "简介",
     "id": 1,
-    "type":1,
-    "url":"http://www.baidu.com"
+    "type": 1,
+    "url": "https://learnopengl-cn.github.io/"
   },
   {
     "name": "入门",
     "id": 2,
     "childItem": [
       {
-        "name": "OpenGL",
-        "id": 200
+        "name": "OpenGL ES",
+        "id": 200,
+        "type": 1,
+        "url": "https://baike.baidu.com/item/OpenGL%20ES/7922580?fr=aladdin"
       },
       {
         "name": "创建窗口",

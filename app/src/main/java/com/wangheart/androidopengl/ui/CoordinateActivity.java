@@ -3,6 +3,7 @@ package com.wangheart.androidopengl.ui;
 import android.content.Context;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.renderscript.Matrix4f;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.es.IShader;
 import com.wangheart.androidopengl.es.ShaderES30;
 import com.wangheart.androidopengl.es.TexturesES;
+import com.wangheart.androidopengl.utils.MatrixUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -125,9 +127,9 @@ public class CoordinateActivity extends BaseActivity {
         FloatBuffer vertexBuffer;
 
         private IShader shader;
-        private Matrix4f view;
-        private Matrix4f model;
-        private Matrix4f projection;
+        private float[] view;
+        private float[] model;
+        private float[] projection;
         private int width;
         private int height;
 
@@ -175,10 +177,10 @@ public class CoordinateActivity extends BaseActivity {
             Logger.d("onSurfaceChanged");
             //glViewport中定义的位置和宽高进行2D坐标的转换，将OpenGL中的位置坐标转换为你的屏幕坐标
             GLES30.glViewport(0, 0, width, height);
-            view=new Matrix4f();
-            projection=new Matrix4f();
-            view.translate(0.0f,0.0f,-3.0f);
-            projection.loadPerspective(45.0f,width/(float)height,0.1f,100.0f);
+            view= MatrixUtils.genMat4();
+            projection=MatrixUtils.genMat4();
+            Matrix.translateM(view,0,0.0f,0.0f,-3.0f);
+            Matrix.perspectiveM(projection,0,45.0f,width/(float)height,0.1f,100.0f);
         }
 
         @Override
@@ -187,8 +189,8 @@ public class CoordinateActivity extends BaseActivity {
             GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT|GLES30.GL_DEPTH_BUFFER_BIT);
             //使用着色器程序
             shader.use();
-            shader.setMat4("view",view.getArray());
-            shader.setMat4("projection",projection.getArray());
+            shader.setMat4("view",view);
+            shader.setMat4("projection",projection);
             //绑定顶点数组对象
             GLES30.glBindVertexArray(VAO[0]);
             GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
@@ -196,16 +198,15 @@ public class CoordinateActivity extends BaseActivity {
             GLES30.glActiveTexture(GLES30.GL_TEXTURE1);
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,texture1);
             for(int i=0;i<cubePositions.length;i+=3){
-                model=new Matrix4f();
-                model.translate(cubePositions[i],cubePositions[i+1],cubePositions[i+2]);
-                model.scale(0.5f,0.5f,0.5f);
+                model=MatrixUtils.genMat4();
+                Matrix.translateM(model,0,cubePositions[i],cubePositions[i+1],cubePositions[i+2]);
+                Matrix.scaleM(model,0,0.5f,0.5f,0.5f);
                 float angle = 20.0f * i;
-                model.rotate(angle,1.0f,0.3f,0.5f);
-                shader.setMat4("model",model.getArray());
+                Matrix.rotateM(model,0,angle,1.0f,0.3f,0.5f);
+                shader.setMat4("model",model);
                 // 绘制三角形
                 GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 36);
             }
-
             GLES30.glBindVertexArray(0);
         }
     }
