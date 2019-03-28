@@ -87,7 +87,7 @@ public class GlCamera {
         if(direction== Camera_Movement.NONE){
             return;
         }
-        LogUtils.d("deltaTime:%d",deltaTime);
+//        LogUtils.d("deltaTime:%d",deltaTime);
         float velocity = movementSpeed * deltaTime;
         if (direction == Camera_Movement.FORWARD)
             VecUtils.add2Left(position,VecUtils.multiply(front,velocity));
@@ -107,7 +107,7 @@ public class GlCamera {
 
         yaw   += xOffset;
         pitch += yOffset;
-        LogUtils.d("xOffset %f,yOffset %f,yaw %f,pitch %f",xOffset,yOffset,yaw,pitch);
+//        LogUtils.d("xOffset %f,yOffset %f,yaw %f,pitch %f",xOffset,yOffset,yaw,pitch);
 
         if(pitch>89f){
             pitch=89f;
@@ -122,6 +122,15 @@ public class GlCamera {
             yaw=1;
         }
         updateCameraVectors();
+    }
+
+    public void processScale(float offset){
+        if (zoom >= 1.0f && zoom <= 45.0f)
+            zoom -= offset;
+        if (zoom <= 1.0f)
+            zoom = 1.0f;
+        if (zoom >= 45.0f)
+            zoom = 45.0f;
     }
 
     public float[] getPosition() {
