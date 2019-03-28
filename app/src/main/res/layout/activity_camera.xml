@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/ll_camera_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="200dp"></FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"
+        android:background="#66ff0000">
+        <Button
+            android:id="@+id/btn_left"
+            android:layout_width="50dp"
+            android:layout_centerVertical="true"
+            android:layout_height="50dp"
+            android:text="L"/>
+        <Button
+            android:id="@+id/btn_top"
+            android:layout_width="50dp"
+            android:layout_above="@id/btn_left"
+            android:layout_toRightOf="@id/btn_left"
+            android:layout_height="50dp"
+            android:text="T"/>
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="50dp"
+            android:layout_toRightOf="@id/btn_top"
+            android:layout_centerVertical="true"
+            android:layout_height="50dp"
+            android:text="R"/>
+
+        <Button
+            android:id="@+id/btn_bottom"
+            android:layout_width="50dp"
+            android:layout_below="@id/btn_left"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/btn_left"
+            android:layout_height="50dp"
+            android:text="B"/>
+    </RelativeLayout>
+</FrameLayout>

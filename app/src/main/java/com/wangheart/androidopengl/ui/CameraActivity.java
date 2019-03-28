@@ -5,8 +5,13 @@ import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
 import android.renderscript.Matrix4f;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.orhanobut.logger.Logger;
 import com.wangheart.androidopengl.R;
@@ -34,22 +39,70 @@ import javax.microedition.khronos.opengles.GL10;
  * @description: 摄像机
  * @date 2019/3/26
  */
-public class CameraActivity extends BaseActivity {
+public class CameraActivity extends BaseActivity implements View.OnClickListener{
     private MyGLSurfaceView mGLSurfaceView;
+    private FrameLayout llCameraRoot;
+    private GlCamera glCamera;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_camera);
         mGLSurfaceView = new MyGLSurfaceView(getThis());
-        setContentView(mGLSurfaceView);
+        llCameraRoot=findViewById(R.id.ll_camera_root);
+        llCameraRoot.addView(mGLSurfaceView);
+        findViewById(R.id.btn_left).setOnClickListener(this);
+        findViewById(R.id.btn_right).setOnClickListener(this);
+        findViewById(R.id.btn_top).setOnClickListener(this);
+        findViewById(R.id.btn_bottom).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_left:
+                glCamera.processKeyboard(GlCamera.Camera_Movement.LEFT);
+                break;
+            case R.id.btn_right:
+                glCamera.processKeyboard(GlCamera.Camera_Movement.RIGHT);
+                break;
+            case R.id.btn_top:
+                glCamera.processKeyboard(GlCamera.Camera_Movement.FORWARD);
+                break;
+            case R.id.btn_bottom:
+                glCamera.processKeyboard(GlCamera.Camera_Movement.BACKWARD);
+                break;
+        }
     }
 
     protected class MyGLSurfaceView extends GLSurfaceView {
+        private float lastX;
+        private float lastY;
 
         public MyGLSurfaceView(Context context) {
             super(context);
             setEGLContextClientVersion(3);
             setRenderer(new MyRender());
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+//            LogUtils.d("onTouchEvent "+event.getX()+" "+event.getY());
+            switch (event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    lastX=event.getX();
+                    lastY=event.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    float xOffset=event.getX()-lastX;
+                    float yOffset=lastY-event.getY();
+                    lastX=event.getX();
+                    lastY=event.getY();
+                    glCamera.processDirection(xOffset,yOffset);
+                    break;
+            }
+            return true;
+
         }
     }
 
@@ -129,12 +182,10 @@ public class CameraActivity extends BaseActivity {
         FloatBuffer vertexBuffer;
 
         private IShader shader;
-        private float[] view;
         private float[] model;
         private float[] projection;
         private int width;
         private int height;
-        private GlCamera glCamera;
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -179,14 +230,9 @@ public class CameraActivity extends BaseActivity {
             Logger.d("onSurfaceChanged");
             //glViewport中定义的位置和宽高进行2D坐标的转换，将OpenGL中的位置坐标转换为你的屏幕坐标
             GLES30.glViewport(0, 0, width, height);
-            view = MatUtils.genMat4();
             projection = MatUtils.genMat4();
-            Matrix.translateM(view, 0, 0.0f, 0.0f, -3.0f);
-            LogUtils.d(Arrays.toString(glCamera.position));
-            LogUtils.d(Arrays.toString(glCamera.front));
-            LogUtils.d(Arrays.toString(glCamera.up));
             LogUtils.d(Arrays.toString(glCamera.getViewMatrix()));
-            Matrix.perspectiveM(projection, 0, 45.0f, width / (float) height, 0.1f, 100.0f);
+            Matrix.perspectiveM(projection, 0, glCamera.getZoom(), width / (float) height, 0.1f, 100.0f);
         }
 
         @Override
