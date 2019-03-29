@@ -1,7 +1,7 @@
 #version 300 es
 struct Material {
     sampler2D diffuse;
-    vec3 specular;
+    sampler2D specular;
     float shininess;
 };
 
@@ -44,7 +44,7 @@ void main() {
     //不要写成整型，否则会计算失败，因为找不到pow(float ,int)的定义
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular;
-    specular= specularStrength * spec * light.specular * material.specular;
+    specular= specularStrength * spec * light.specular * vec3(texture(material.specular, TexCoords));
 
     vec3 result=ambient + diffuse+ specular;
 

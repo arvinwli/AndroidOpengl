@@ -128,6 +128,7 @@ public class LightTexturesActivity extends BaseMovementActivity {
         private float[] lightColor = {1.0f, 1.0f, 1.0f};
         private float[] objectColor = {1.0f, 0.5f, 0.31f};
         private int texture0;
+        private int texture1;
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -168,6 +169,7 @@ public class LightTexturesActivity extends BaseMovementActivity {
                     8 * 4, 0);
             GLES30.glEnableVertexAttribArray(0);
             texture0= TexturesES.loadTexture(R.mipmap.box);
+            texture1= TexturesES.loadTexture(R.mipmap.box_specular);
 
             GLES30.glEnable(GLES30.GL_DEPTH_TEST);
             try {
@@ -175,6 +177,10 @@ public class LightTexturesActivity extends BaseMovementActivity {
                         IOUtils.toString(getThis().getAssets().open("light_textures/box.frag")));
                 shaderLight = new ShaderES30(IOUtils.toString(getThis().getAssets().open("light_textures/light.vert")),
                         IOUtils.toString(getThis().getAssets().open("light_textures/light.frag")));
+                //设置shader对应的纹理单元
+                shader.setInt("material.diffuse",  0);
+                shader.setInt("material.specular",  1);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -195,8 +201,11 @@ public class LightTexturesActivity extends BaseMovementActivity {
             onRenderDraw();
             GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT | GLES30.GL_DEPTH_BUFFER_BIT);
             shader.use();
+            //激活对应的纹理单元
             GLES30.glActiveTexture(GLES30.GL_TEXTURE0);
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,texture0);
+            GLES30.glActiveTexture(GLES30.GL_TEXTURE1);
+            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D,texture1);
             projection = MatUtils.genMat4();
             Matrix.perspectiveM(projection, 0, getGlCamera().getZoom(), width / (float) height, 0.1f, 100.0f);
             shader.setMat4("view",  getGlCamera().getViewMatrix());
@@ -210,7 +219,6 @@ public class LightTexturesActivity extends BaseMovementActivity {
             //shader.setVec3("objectColor", objectColor);
             //shader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
             //shader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
-            shader.setInt("material.diffuse",  0);
             shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
             shader.setFloat("material.shininess", 64.0f);
             //shader.setVec3("lightColor", lightColor);
