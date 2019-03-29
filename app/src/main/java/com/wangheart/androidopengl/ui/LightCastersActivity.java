@@ -115,6 +115,17 @@ public class LightCastersActivity extends BaseMovementActivity {
                 -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
                 -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
         };
+        float cubePositions[] = {
+                0.0f, 0.0f, 0.0f,
+                2.0f, 5.0f, -15.0f,
+                -1.5f, -2.2f, -2.5f,
+                -3.8f, -2.0f, -12.3f,
+                2.4f, -0.4f, -3.5f,
+                -1.7f, 3.0f, -7.5f,
+                1.3f, -2.0f, -2.5f,
+                1.5f, 2.0f, -2.5f,
+                1.5f, 0.2f, -1.5f,
+                -1.3f, 1.0f, -1.5f};
         FloatBuffer vertexBuffer;
 
         private IShader shader;
@@ -123,7 +134,7 @@ public class LightCastersActivity extends BaseMovementActivity {
         private float[] projection;
         private int width;
         private int height;
-        private float[] lightPos = {0.6f, 0.5f, 1.0f};
+        private float[] lightPos = {0.0f, 0.0f, 1.0f};
         private float[] lightColor = {1.0f, 1.0f, 1.0f};
         private float[] objectColor = {1.0f, 0.5f, 0.31f};
         private int texture0;
@@ -211,10 +222,6 @@ public class LightCastersActivity extends BaseMovementActivity {
             shader.setMat4("projection", projection);
             //绑定顶点数组对象
             GLES30.glBindVertexArray(VAO[0]);
-            model = MatUtils.genMat4();
-            Matrix.translateM(model, 0, -0.5f, -0.5f, 0.0f);
-            Matrix.scaleM(model, 0, 0.5f, 0.5f, 0.5f);
-            shader.setMat4("model", model);
             //shader.setVec3("objectColor", objectColor);
             //shader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
             //shader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
@@ -226,9 +233,19 @@ public class LightCastersActivity extends BaseMovementActivity {
             shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 //            shader.setVec3("lightPos", lightPos);
            // shader.setVec3("light.position", lightPos);
-            shader.setVec3("light.direction", new float[]{-0.6f,- 0.5f, -1.0f});
+            shader.setVec3("light.direction", new float[]{0.0f, 0.0f, -1});
             shader.setVec3("viewPos", getGlCamera().getPosition());
-            GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 36);
+
+            for (int i = 0; i < cubePositions.length; i += 3) {
+                model = MatUtils.genMat4();
+                Matrix.translateM(model, 0, cubePositions[i], cubePositions[i + 1], cubePositions[i + 2]);
+                Matrix.scaleM(model, 0, 0.5f, 0.5f, 0.5f);
+                float angle = 20.0f * i;
+                Matrix.rotateM(model, 0, angle, 1.0f, 0.3f, 0.5f);
+                shader.setMat4("model", model);
+                // 绘制三角形
+                GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 36);
+            }
 
             GLES30.glBindVertexArray(VAO_LIGHT[0]);
             shaderLight.use();
