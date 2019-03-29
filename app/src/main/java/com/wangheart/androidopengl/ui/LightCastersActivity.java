@@ -18,6 +18,7 @@ import com.wangheart.androidopengl.utils.MatUtils;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -33,6 +34,10 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class LightCastersActivity extends BaseMovementActivity {
     private MyGLSurfaceView mGLSurfaceView;
+    private final int LIGHT_DIRECTIONAL=0;
+    private final int LIGHT_POINT=1;
+    private final int LIGHT_SPOT=2;
+    private int lightType=LIGHT_POINT;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +139,7 @@ public class LightCastersActivity extends BaseMovementActivity {
         private float[] projection;
         private int width;
         private int height;
-        private float[] lightPos = {0.0f, 0.0f, 1.0f};
+        private float[] lightPos = {0.0f, 1.0f, -2.0f};
         private float[] lightColor = {1.0f, 1.0f, 1.0f};
         private float[] objectColor = {1.0f, 0.5f, 0.31f};
         private int texture0;
@@ -183,8 +188,20 @@ public class LightCastersActivity extends BaseMovementActivity {
 
             GLES30.glEnable(GLES30.GL_DEPTH_TEST);
             try {
+                String shaderPath="light_casters/box_directional.frag";
+                switch (lightType){
+                    case LIGHT_DIRECTIONAL:
+                        shaderPath="light_casters/box_directional.frag";
+                        break;
+                    case LIGHT_POINT:
+                        shaderPath="light_casters/box_point.frag";
+                        break;
+                    case LIGHT_SPOT:
+                        shaderPath="light_casters/box_spot.frag";
+                        break;
+                }
                 shader = new ShaderES30(IOUtils.toString(getThis().getAssets().open("light_casters/box.vert")),
-                        IOUtils.toString(getThis().getAssets().open("light_casters/box.frag")));
+                        IOUtils.toString(getThis().getAssets().open(shaderPath)));
                 shaderLight = new ShaderES30(IOUtils.toString(getThis().getAssets().open("light_casters/light.vert")),
                         IOUtils.toString(getThis().getAssets().open("light_casters/light.frag")));
                 //设置shader对应的纹理单元
@@ -227,14 +244,23 @@ public class LightCastersActivity extends BaseMovementActivity {
             //shader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
             shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
             shader.setFloat("material.shininess", 64.0f);
-            //shader.setVec3("lightColor", lightColor);
+            shader.setVec3("viewPos", getGlCamera().getPosition());
             shader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
             shader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
             shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-//            shader.setVec3("lightPos", lightPos);
-           // shader.setVec3("light.position", lightPos);
-            shader.setVec3("light.direction", new float[]{0.0f, 0.0f, -1});
-            shader.setVec3("viewPos", getGlCamera().getPosition());
+            switch (lightType){
+                case LIGHT_DIRECTIONAL:
+                    shader.setVec3("light.direction", new float[]{0.0f, 0.0f, -1});
+                    break;
+                case LIGHT_POINT:
+                    shader.setVec3("light.position", lightPos);
+                    shader.setFloat("light.constant",  1.0f);
+                    shader.setFloat("light.linear",    0.09f);
+                    shader.setFloat("light.quadratic", 0.032f);
+                    break;
+                case LIGHT_SPOT:
+                    break;
+            }
 
             for (int i = 0; i < cubePositions.length; i += 3) {
                 model = MatUtils.genMat4();
