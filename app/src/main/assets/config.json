@@ -81,7 +81,9 @@
       },
       {
         "name": "光照贴图",
-        "id": 303
+        "id": 303,
+        "type":0,
+        "activityName":"LightTexturesActivity"
       },
       {
         "name": "投光物",
