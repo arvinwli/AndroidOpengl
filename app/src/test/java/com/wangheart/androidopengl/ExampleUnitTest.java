@@ -28,6 +28,16 @@ public class ExampleUnitTest {
         float[] v12=new float[]{0.0f,1.0f,0.0f};
         System.out.println(Arrays.toString(VecUtils.normalize(VecUtils.cross(v11,v12))));
 
+
+        float[] v21=new float[]{0.6f,-0.8f,0.0f};
+        float[] v22=new float[]{0.0f,1.0f,0.0f};
+        System.out.println(VecUtils.dotMultiply(v21,v22));
+
+        float[] v31=new float[]{1.0f,0.0f,0.0f};
+        float[] v32=new float[]{1.0f,1.0f,0.0f};
+        System.out.println(VecUtils.getVecAngleRadians(v31,v32));
+        System.out.println(VecUtils.length(v32));
+
         assertEquals(4, 2 + 2);
     }
 }
