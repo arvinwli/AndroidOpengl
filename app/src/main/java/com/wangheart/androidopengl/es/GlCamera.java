@@ -115,12 +115,12 @@ public class GlCamera {
         if(pitch<-89f){
             pitch=-89f;
         }
-        if(yaw<-179){
-            yaw=-179;
-        }
-        if(yaw>1){
-            yaw=1;
-        }
+//        if(yaw<-179){
+//            yaw=-179;
+//        }
+//        if(yaw>1){
+//            yaw=1;
+//        }
         updateCameraVectors();
     }
 

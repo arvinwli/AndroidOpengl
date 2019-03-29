@@ -37,6 +37,7 @@ public class ExampleUnitTest {
         float[] v32=new float[]{1.0f,1.0f,0.0f};
         System.out.println(VecUtils.getVecAngleRadians(v31,v32));
         System.out.println(VecUtils.length(v32));
+        System.out.println(Arrays.toString(Arrays.copyOf(v31,3)));
 
         assertEquals(4, 2 + 2);
     }

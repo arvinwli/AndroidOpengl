@@ -69,7 +69,9 @@
       },
       {
         "name": "基础光照",
-        "id": 301
+        "id": 301,
+        "type":0,
+        "activityName":"LightBasicsActivity"
       },
       {
         "name": "材质",
