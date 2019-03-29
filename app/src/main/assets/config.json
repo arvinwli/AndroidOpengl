@@ -75,7 +75,9 @@
       },
       {
         "name": "材质",
-        "id": 302
+        "id": 302,
+        "type":0,
+        "activityName":"LightMaterialActivity"
       },
       {
         "name": "光照贴图",
