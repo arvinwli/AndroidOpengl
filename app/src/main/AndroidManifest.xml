@@ -50,6 +50,8 @@
         <activity android:name=".ui.TexturesActivity"
             android:label="Textures"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.LightColorActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

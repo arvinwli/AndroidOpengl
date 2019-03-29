@@ -1,7 +1,7 @@
 package com.wangheart.androidopengl.utils;
 
 /**
- * @author arvinwli
+ * @author arvin
  * @description: 三维向量计算
  * @date 2019/3/28
  */

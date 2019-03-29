@@ -16,8 +16,11 @@ import android.widget.TextView;
 import com.wangheart.androidopengl.common.BaseActivity;
 import com.wangheart.androidopengl.common.Constants;
 import com.wangheart.androidopengl.ui.WebActivity;
+import com.wangheart.androidopengl.utils.CollectionsUtils;
 import com.wangheart.androidopengl.utils.LogUtils;
+import com.wangheart.androidopengl.utils.UIUtils;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,12 +43,12 @@ public class LearnListActivity extends BaseActivity {
 
     private void initView() {
         mLearnItem = (LearnCenter.LearnItem) getIntent().getSerializableExtra(Constants.REQUEST.KEY_LEARN_ITEM);
-        if(mLearnItem==null){
-            mListData=LearnCenter.getRootList();
-        }else{
+        if (mLearnItem == null) {
+            mListData = LearnCenter.getRootList();
+        } else {
             mListData = mLearnItem.getChildItem();
         }
-        setTitle(mLearnItem==null?"全部":mLearnItem.getName());
+        setTitle(mLearnItem == null ? "全部" : mLearnItem.getName());
         rv = findViewById(R.id.rv);
         mAdapter = new LearnAdapter();
         rv.setLayoutManager(new LinearLayoutManager(getThis()));
@@ -62,22 +65,28 @@ public class LearnListActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull LearnItemHolder learnItemHolder, final int i) {
-
+            final boolean isEnable = !TextUtils.isEmpty(mListData.get(i).getActivityName()) ||
+                    !TextUtils.isEmpty(mListData.get(i).getUrl()) ||
+                    !CollectionsUtils.isEmpty(mListData.get(i).getChildItem());
+            learnItemHolder.itemView.setEnabled(isEnable);
             learnItemHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LearnCenter.LearnItem item=mListData.get(i);
-                    if(item.getChildItem()!=null&&item.getChildItem().size()>0) {
+                    if (!isEnable) {
+                        return;
+                    }
+                    LearnCenter.LearnItem item = mListData.get(i);
+                    if (item.getChildItem() != null && item.getChildItem().size() > 0) {
                         LearnCenter.launchLearnList(getThis(), mListData.get(i));
-                    }else{
-                        switch (item.getType()){
+                    } else {
+                        switch (item.getType()) {
                             case LearnCenter.TYPE_ACTIVITY:
                                 LearnCenter.launchDetail(getThis(), item);
                                 break;
                             case LearnCenter.TYPE_WEB:
-                                if(TextUtils.isEmpty(item.getUrl())){
-                                    LogUtils.w("item url is empty "+item);
-                                }else {
+                                if (TextUtils.isEmpty(item.getUrl())) {
+                                    LogUtils.w("item url is empty " + item);
+                                } else {
                                     WebActivity.launch(getThis(), item.getUrl(), item.getName());
                                 }
                                 break;
@@ -86,6 +95,7 @@ public class LearnListActivity extends BaseActivity {
                 }
             });
             learnItemHolder.tvName.setText(mListData.get(i).getName());
+            learnItemHolder.tvName.setTextColor(isEnable?UIUtils.getColor(R.color.textDefault):UIUtils.getColor(R.color.textGray));
         }
 
         @Override
@@ -102,7 +112,7 @@ public class LearnListActivity extends BaseActivity {
         public LearnItemHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
-            flContainer=itemView.findViewById(R.id.fl_container);
+            flContainer = itemView.findViewById(R.id.fl_container);
         }
     }
 }

@@ -63,7 +63,9 @@
     "childItem": [
       {
         "name": "颜色",
-        "id": 300
+        "id": 300,
+        "type":0,
+        "activityName":"LightColorActivity"
       },
       {
         "name": "基础光照",
