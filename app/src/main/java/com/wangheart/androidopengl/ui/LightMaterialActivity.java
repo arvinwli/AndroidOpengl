@@ -196,9 +196,17 @@ public class LightMaterialActivity extends BaseMovementActivity {
             Matrix.translateM(model, 0, -0.5f, -0.5f, 0.0f);
             Matrix.scaleM(model, 0, 0.5f, 0.5f, 0.5f);
             shader.setMat4("model", model);
-            shader.setVec3("objectColor", objectColor);
-            shader.setVec3("lightColor", lightColor);
-            shader.setVec3("lightPos", lightPos);
+            //shader.setVec3("objectColor", objectColor);
+            shader.setVec3("material.ambient",  1.0f, 0.5f, 0.31f);
+            shader.setVec3("material.diffuse",  1.0f, 0.5f, 0.31f);
+            shader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+            shader.setFloat("material.shininess", 64.0f);
+            //shader.setVec3("lightColor", lightColor);
+            shader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
+            shader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
+            shader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+//            shader.setVec3("lightPos", lightPos);
+            shader.setVec3("light.position", lightPos);
             shader.setVec3("viewPos", getGlCamera().getPosition());
             GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 36);
 
